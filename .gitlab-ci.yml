@@ -2,7 +2,7 @@ stages:
   - cluster-setup
   - infra-setup
   - stateful-apps-deploy
-  - litmus-chaos-testing
+  - litmus-chaos
   - cleanup
   - deploy
 azure-cluster:
@@ -114,11 +114,11 @@ percona-azure-deploy-cstor:
     paths:
       - aws-cstor/
 
-litmus-chaos-testing:
+litmus-chaos:
   image: atulabhi/kops:v8
   dependencies:
-    - cluster-setup
-  stage: chaos-test
+    - percona-deploy
+  stage: litmus-chaos
   script:
    - chmod 775 ./script/app-chaos
    - ./script/app-chaos
